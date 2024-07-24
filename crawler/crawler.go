@@ -3,7 +3,6 @@ package crawler
 import (
 	"fmt"
 	"github.com/gocolly/colly/v2"
-	"github.com/itsorganic/go-scraper/product"
 )
 
 type Product struct {
@@ -12,14 +11,13 @@ type Product struct {
 	Price string `json:"price"`
 }
 
-func ScrapeAmazon() []Product {
+func ScrapeAmazon(pro string) []Product {
 	c := colly.NewCollector(
 		colly.AllowedDomains("www.amazon.in"),
 	)
 
+	product_url := "https://www.amazon.in/s?k=" + pro
 	var products []Product
-	product_url := "https://www.amazon.in/s?k=" + product.Get_product()
-
 	c.OnRequest(func(r *colly.Request) {
 		fmt.Println("Link of the page:", r.URL)
 	})

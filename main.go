@@ -10,9 +10,12 @@ import (
 
 func main() {
 	app := fiber.New()
+	var url string
+	fmt.Println("Enter the name of the product: ")
+	fmt.Scanln(&url)
 
 	app.Get("/scrape", func(c *fiber.Ctx) error {
-		products := crawler.ScrapeAmazon()
+		products := crawler.ScrapeAmazon(url)
 		return c.JSON(products)
 	})
 	log.Fatal(app.Listen(":3000"))
